@@ -2,6 +2,7 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { DEMO_PRODUCTS, Product, CATEGORIES } from "@/lib/products";
+import { loadCustomProducts } from "@/lib/localstore";
 import { searchProducts } from "@/lib/search";
 import { useLang } from "@/lib/i18n";
 import { ProductCard } from "@/components/product-card";
@@ -14,6 +15,9 @@ function ShopInner() {
   const [sort, setSort] = useState("new");
   const [maxPrice, setMaxPrice] = useState(10000);
   const [serverResults, setServerResults] = useState<Product[] | null>(null);
+  const [custom, setCustom] = useState<Product[]>([]);
+
+  useEffect(() => { setCustom(loadCustomProducts().filter((p) => p.active !== false)); }, []);
 
   useEffect(() => { setQ(params.get("q") ?? ""); setCat(params.get("cat") ?? "Tous"); }, [params]);
 
@@ -51,7 +55,7 @@ function ShopInner() {
     return () => clearTimeout(t);
   }, [q, cat]);
 
-  const base = serverResults ?? searchProducts(DEMO_PRODUCTS, q, cat);
+  const base = serverResults ?? searchProducts([...custom, ...DEMO_PRODUCTS], q, cat);
   const results = useMemo(() => {
     let list = base.filter((p) => p.price_dzd <= maxPrice);
     if (sort === "cheap") list = [...list].sort((a, b) => a.price_dzd - b.price_dzd);

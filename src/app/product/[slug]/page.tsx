@@ -1,7 +1,8 @@
 "use client";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { DEMO_PRODUCTS } from "@/lib/products";
+import { DEMO_PRODUCTS, Product } from "@/lib/products";
+import { loadCustomProducts } from "@/lib/localstore";
 import { useLang } from "@/lib/i18n";
 import { useCart } from "@/store/cart";
 import { price } from "@/components/product-card";
@@ -9,7 +10,9 @@ import { TikTokIcon } from "@/components/chrome";
 
 export default function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const p = DEMO_PRODUCTS.find((x) => x.slug === slug) ?? DEMO_PRODUCTS[0];
+  const [custom, setCustom] = useState<Product[]>([]);
+  useEffect(() => { setCustom(loadCustomProducts().filter((p) => p.active !== false)); }, []);
+  const p = [...custom, ...DEMO_PRODUCTS].find((x) => x.slug === slug) ?? DEMO_PRODUCTS[0];
   const { lang, t } = useLang();
   const add = useCart((s) => s.add);
   const [size, setSize] = useState(p.sizes[0]);

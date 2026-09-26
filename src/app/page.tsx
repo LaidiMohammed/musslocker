@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DEMO_PRODUCTS, Product, TIKTOK_URL, CATEGORIES, HERO_IMAGE } from "@/lib/products";
+import { loadCustomProducts } from "@/lib/localstore";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { useLang } from "@/lib/i18n";
 import { ProductCard } from "@/components/product-card";
@@ -12,6 +13,8 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>(DEMO_PRODUCTS);
 
   useEffect(() => {
+    const mine = loadCustomProducts().filter((p) => p.active !== false);
+    if (mine.length) setProducts((prev) => [...mine, ...prev]);
     const sb = supabaseBrowser();
     if (!sb) return;
     sb.from("products").select("*").eq("active", true).limit(24).then(({ data }) => {
