@@ -33,6 +33,7 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
           <Link href="/" className="hover:text-red-500">{t.home}</Link>
           <Link href="/shop" className="hover:text-red-500">{t.shop}</Link>
+          <Link href="/about" className="hover:text-red-500">{lang === "fr" ? "À propos" : "من نحن"}</Link>
         </nav>
         <form action="/shop" className="order-4 basis-full flex md:order-none md:basis-auto md:flex-1 max-w-xl md:mx-auto">
           <input
@@ -83,6 +84,7 @@ export function Footer() {
           <p className="font-bold text-white mb-2">{lang === "fr" ? "Liens" : "روابط"}</p>
           <div className="flex flex-col gap-1">
             <Link href="/shop">Boutique / المتجر</Link>
+            <Link href="/about">À propos / من نحن</Link>
             <Link href="/suivi">Suivi / تتبع</Link>
           </div>
         </div>
