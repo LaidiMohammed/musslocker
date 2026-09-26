@@ -52,7 +52,7 @@ export default function Home() {
           <p className="inline-block rounded-full bg-red-600 text-white text-xs font-black px-4 py-1">{t.hero_kicker}</p>
           <h1 className="mt-4 max-w-2xl text-5xl md:text-7xl font-black leading-[0.95]">{t.hero_title}</h1>
           <p className="mt-4 max-w-xl text-neutral-300">{t.hero_sub}</p>
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link href="/shop" className="rounded-full bg-red-600 text-white font-black px-7 py-3 hover:bg-red-700">{t.hero_cta}</Link>
             <a href={TIKTOK_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 font-bold hover:bg-white hover:text-black">
               <TikTokIcon className="h-4 w-4" /> {t.hero_tiktok}

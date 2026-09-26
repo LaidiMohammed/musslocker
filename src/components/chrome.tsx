@@ -22,7 +22,7 @@ export function Header() {
       <div className="bg-red-600 text-white text-center text-xs font-bold py-1 px-2">
         {lang === "fr" ? "LIVRAISON 58 WILAYAS • PAIEMENT À LA LIVRAISON • VU SUR TIKTOK" : "توصيل لـ 58 ولاية • الدفع عند الاستلام • شفتونا على تيك توك"}
       </div>
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-3">
+      <div className="mx-auto max-w-7xl px-4 py-3 flex flex-wrap items-center gap-2 sm:gap-3">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/muss.jpg" alt="MussLocker logo" className="h-11 w-11 rounded-full object-cover border-2 border-red-600" />
@@ -34,7 +34,7 @@ export function Header() {
           <Link href="/" className="hover:text-red-500">{t.home}</Link>
           <Link href="/shop" className="hover:text-red-500">{t.shop}</Link>
         </nav>
-        <form action="/shop" className="flex-1 flex max-w-xl mx-auto">
+        <form action="/shop" className="order-4 basis-full flex md:order-none md:basis-auto md:flex-1 max-w-xl md:mx-auto">
           <input
             name="q"
             value={q}
